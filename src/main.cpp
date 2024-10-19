@@ -76,7 +76,6 @@ Producto* buscarProducto(list<Producto*> lst, int id) {
 Venta* hacerVenta(list<Cliente*> lstC, list<Producto*> lstP) {
     int idCliente;
     Venta* v = NULL;
-    list<Producto*> lstProdVend;
 
     std::cout << "Digite el ID del cliente de la venta: "; std::cin >> idCliente;
     Cliente* c = buscarCliente(lstC, idCliente);
@@ -95,15 +94,13 @@ Venta* hacerVenta(list<Cliente*> lstC, list<Producto*> lstP) {
             Producto* p = buscarProducto(lstP, idProducto);
 
             if (p) {
-                lstProdVend.push_back(p);
+                v->agregarProducto(p);
                 std::cout << "Producto agregado con exito a la venta!" << std::endl;
             }
             else { std::cout << "Producto no existente." << std::endl; }
 
             std::cout << "Desea agregar otro producto? [SI = 1]: "; std::cin >> respuesta;
         } while (respuesta == '1');
-
-        v->setProductosVendidos(lstProdVend);
     }
     else { std::cout << "Cliente no existente." << std::endl; }
     
@@ -271,12 +268,8 @@ int main (int argc, char *argv[]) {
             case '3':
                 {
                     // HACER VENTA
-                    Venta* venta = hacerVenta(lstCliente, lstProducto);
-                    if (venta) {
-                        lstVenta.push_back(venta);
-                        std::cout << "La venta se realizo con exito!" << std::endl;
-                    }
-                    else { std::cout << "La venta no se realizo." << std::endl; }
+                    lstVenta.push_back(hacerVenta(lstCliente, lstProducto));
+                    std::cout << "La venta se realizo con exito!" << std::endl;
                 }
                 break;
             case '4':

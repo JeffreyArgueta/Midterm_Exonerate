@@ -24,7 +24,7 @@ class Venta {
         std::string getFechaVenta() { return this->fechaVenta; }
         void setCliente(Cliente* sc) { this->cliente = sc; }
         Cliente* getCliente() { return this->cliente; }
-        void setProductosVendidos(list<Producto*> spv) { this->productosVendidos = spv; }
+        void agregarProducto(Producto* ap) { this->productosVendidos.push_back(ap); }
         list<Producto*> getProductosVendidos() { return this->productosVendidos; }
 };
 

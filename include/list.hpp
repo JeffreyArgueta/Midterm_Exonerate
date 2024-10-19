@@ -33,11 +33,11 @@ class list {
                 reference operator*() const { return this->node->value; }
                 pointer operator->() { return& this->node->value; }
 
-                Iterator<Tp>& operator++() {
+                Iterator& operator++() {
                     if (this->node != NULL) { this->node = this->node->next; }
                     return* this;
                 }
-                Iterator<Tp>& operator--() {
+                Iterator& operator--() {
                     if (this->node != NULL) { this->node = this->node->prev; }
                     return* this;
                 }
