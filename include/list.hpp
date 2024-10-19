@@ -3,54 +3,54 @@
 
 #include <cstddef>
 
-template<typename T_list>
+template<typename Tp>
 class list {
     private:
-        template<typename T_node>
+        template<typename Tp>
         class Node {
             private:
-                T_node value;
-                Node<T_node>* next;
-                Node<T_node>* prev;
+                Tp value;
+                Node<Tp>* next;
+                Node<Tp>* prev;
             public:
-                Node(T_node& v, Node* n = NULL, Node* p = NULL) {
+                Node(Tp& v, Node* n = NULL, Node* p = NULL) {
                     this->value = v;
                     this->next = n;
                     this->prev = p;
                 }
-                friend class list<T_node>;
+                friend class list<Tp>;
         };
-        template<typename T_it>
+        template<typename Tp>
         class Iterator {
             private:
-                Node<T_it>* node;
+                Node<Tp>* node;
             public:
-                using pointer       = T_it*;
-                using reference     = T_it&;
+                using pointer       = Tp*;
+                using reference     = Tp&;
                 
-                Iterator(Node<T_it>* n = NULL) { this->node = n; }
+                Iterator(Node<Tp>* n = NULL) { this->node = n; }
 
                 reference operator*() const { return this->node->value; }
                 pointer operator->() { return& this->node->value; }
 
-                Iterator& operator++() {
+                Iterator<Tp>& operator++() {
                     if (this->node != NULL) { this->node = this->node->next; }
                     return* this;
                 }
-                Iterator& operator--() {
+                Iterator<Tp>& operator--() {
                     if (this->node != NULL) { this->node = this->node->prev; }
                     return* this;
                 }
                 bool operator==(const Iterator& other) const { return (this->node == other.node); }
                 bool operator!=(const Iterator& other) const { return (this->node != other.node); }
-                friend class list<T_it>;
+                friend class list<Tp>;
         };
-        Node<T_list>* first;
-        Node<T_list>* last;
+        Node<Tp>* first;
+        Node<Tp>* last;
         std::size_t size;
     public:
-        using iterator  = Iterator<T_list>;
-        using node      = Node<T_list>*;
+        using iterator  = Iterator<Tp>;
+        using node      = Node<Tp>*;
 
         list() {
             this->first = NULL;
@@ -58,8 +58,8 @@ class list {
             this->size = 0;
         }
         ~list() { this->clear(); }
-        void push_front(T_list pfv) {
-            node n = new Node<T_list>(pfv);
+        void push_front(Tp pfv) {
+            node n = new Node<Tp>(pfv);
             if (!this->first) { this->first = this->last = n; }
             else {
                 n->next = this->first;
@@ -68,8 +68,8 @@ class list {
             }
             this->size++;
         }
-        void push_back(T_list pbv) {
-            node n = new Node<T_list>(pbv);
+        void push_back(Tp pbv) {
+            node n = new Node<Tp>(pbv);
             if (!this->last) { this->first = this->last = n; }
             else {
                 n->prev = this->last;
