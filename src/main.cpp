@@ -43,7 +43,7 @@ Cliente* buscarCliente(list<Cliente*> lst, int id) {
         else { ++pos; }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 Producto* agregarProducto() {
@@ -70,12 +70,13 @@ Producto* buscarProducto(list<Producto*> lst, int id) {
         else { ++pos; }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 Venta* hacerVenta(list<Cliente*> lstC, list<Producto*> lstP) {
     int idCliente;
-    Venta* v = NULL;
+    Venta* v = nullptr;
+    list<Producto*> lstProdVend;
 
     std::cout << "Digite el ID del cliente de la venta: "; std::cin >> idCliente;
     Cliente* c = buscarCliente(lstC, idCliente);
@@ -94,13 +95,15 @@ Venta* hacerVenta(list<Cliente*> lstC, list<Producto*> lstP) {
             Producto* p = buscarProducto(lstP, idProducto);
 
             if (p) {
-                v->agregarProducto(p);
+                lstProdVend.push_back(p);
                 std::cout << "Producto agregado con exito a la venta!" << std::endl;
             }
             else { std::cout << "Producto no existente." << std::endl; }
 
             std::cout << "Desea agregar otro producto? [SI = 1]: "; std::cin >> respuesta;
         } while (respuesta == '1');
+
+        if (!lstProdVend.empty()) { v->setProductosVendidos(lstProdVend); }
     }
     else { std::cout << "Cliente no existente." << std::endl; }
     
@@ -118,7 +121,7 @@ Venta* buscarVenta(list<Venta*> lst, int nf) {
         else { ++pos; }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 void mostrarClientes(list<Cliente*> lst) {
