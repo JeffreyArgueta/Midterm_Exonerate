@@ -126,9 +126,6 @@ Venta* buscarVenta(list<Venta*> lst, int nf) {
 
 void mostrarClientes(list<Cliente*> lst) {
     if (!lst.empty()) {
-        list<Cliente*>::iterator pos;
-        pos = lst.begin();
-        
         std::cout << std::left;
         std::cout << "------------------------------" << std::endl;
         std::cout << std::setw(WIDTH/2) << "ID";
@@ -136,14 +133,10 @@ void mostrarClientes(list<Cliente*> lst) {
         std::cout << std::setw(WIDTH) << "Apellido" << std::endl;
         std::cout << "------------------------------" << std::endl;
 
-        while (pos != lst.end()) {
-            Cliente* c = *pos;
-
-            std::cout << std::setw(WIDTH/2) << c->getIdCliente();
-            std::cout << std::setw(WIDTH) << c->getNombre();
-            std::cout << std::setw(WIDTH) << c->getApellido() << std::endl;
-
-            ++pos;
+        for (auto it = lst.begin(); it != lst.end(); ++it) {
+            std::cout << std::setw(WIDTH/2) << (*it)->getIdCliente();
+            std::cout << std::setw(WIDTH) << (*it)->getNombre();
+            std::cout << std::setw(WIDTH) << (*it)->getApellido() << std::endl;
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -157,9 +150,6 @@ void mostrarClientes(list<Cliente*> lst) {
 
 void mostrarProductos(list<Producto*> lst) {
     if (!lst.empty()) {
-        list<Producto*>::iterator pos;
-        pos = lst.begin();
-        
         std::cout << std::left;
         std::cout << "------------------------------" << std::endl;
         std::cout << std::setw(WIDTH/2) << "ID";
@@ -167,14 +157,10 @@ void mostrarProductos(list<Producto*> lst) {
         std::cout << std::setw(WIDTH) << "Existencia" << std::endl;
         std::cout << "------------------------------" << std::endl;
 
-        while (pos != lst.end()) {
-            Producto* p = *pos;
-
-            std::cout << std::setw(WIDTH/2) << p->getIdProducto();
-            std::cout << std::setw(WIDTH) << p->getDescripcion();
-            std::cout << std::setw(WIDTH) << p->getExistencia() << std::endl;
-
-            ++pos;
+        for (auto it = lst.begin(); it != lst.end(); ++it) {
+            std::cout << std::setw(WIDTH/2) << (*it)->getIdProducto();
+            std::cout << std::setw(WIDTH) << (*it)->getDescripcion();
+            std::cout << std::setw(WIDTH) << (*it)->getExistencia() << std::endl;
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -188,9 +174,6 @@ void mostrarProductos(list<Producto*> lst) {
 
 void mostrarVentas(list<Venta*> lst) {
     if (!lst.empty()) {
-        list<Venta*>::iterator pos;
-        pos = lst.begin();
-        
         std::cout << std::left;
         std::cout << "----------------------------" << std::endl;
         std::cout << std::setw(WIDTH/2) << "No.";
@@ -198,14 +181,10 @@ void mostrarVentas(list<Venta*> lst) {
         std::cout << std::setw(WIDTH-2) << "Fecha" << std::endl;
         std::cout << "----------------------------" << std::endl;
 
-        while (pos != lst.end()) {
-            Venta* v = *pos;
-
-            std::cout << std::setw(WIDTH/2) << v->getNoFactura();
-            std::cout << std::setw(WIDTH) << v->getCliente()->getNombre();
-            std::cout << std::setw(WIDTH-2) << v->getFechaVenta() << std::endl;
-
-            ++pos;
+        for (auto it = lst.begin(); it != lst.end(); ++it) {
+            std::cout << std::setw(WIDTH/2) << (*it)->getNoFactura();
+            std::cout << std::setw(WIDTH) << (*it)->getCliente()->getNombre();
+            std::cout << std::setw(WIDTH) << (*it)->getFechaVenta() << std::endl;
         }
 
         std::cout << "----------------------------" << std::endl;

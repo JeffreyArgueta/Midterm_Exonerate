@@ -6,29 +6,28 @@
 template<typename Tp>
 class list {
     private:
-        template<typename Tp_n>
         class Node {
             private:
                 Tp value;
-                Node<Tp_n>* next;
-                Node<Tp_n>* prev;
+                Node* next;
+                Node* prev;
             public:
-                Node(const Tp_n& v, Node* n = nullptr, Node* p = nullptr) {
+                Node(const Tp& v, Node* n = nullptr, Node* p = nullptr) {
                     this->value = v;
                     this->next = n;
                     this->prev = p;
                 }
-                friend class list<Tp_n>;
+                friend class list;
         };
         template<typename Tp_i>
         class Iterator {
             private:
-                Node<Tp_i>* node;
+                Node* node;
             public:
                 using pointer       = Tp_i*;
                 using reference     = Tp_i&;
                 
-                Iterator(Node<Tp_i>* n = nullptr) { this->node = n; }
+                Iterator(Node* n = nullptr) { this->node = n; }
 
                 reference operator*() const { return this->node->value; }
                 pointer operator->() { return &this->node->value; }
@@ -45,12 +44,12 @@ class list {
                 bool operator!=(const Iterator& other) const { return (this->node != other.node); }
                 friend class list<Tp_i>;
         };
-        Node<Tp>* first;
-        Node<Tp>* last;
+        Node* first;
+        Node* last;
         std::size_t size;
     public:
         using iterator  = Iterator<Tp>;
-        using node      = Node<Tp>*;
+        using node      = Node*;
 
         list() {
             this->first = nullptr;
@@ -65,7 +64,7 @@ class list {
             }
         }
         void push_front(Tp pfv) {
-            node n = new Node<Tp>(pfv);
+            node n = new Node(pfv);
             if (this->empty()) { this->first = this->last = n; }
             else {
                 this->first->prev = n;
@@ -75,7 +74,7 @@ class list {
             ++this->size;
         }
         void push_back(Tp pbv) {
-            node n = new Node<Tp>(pbv);
+            node n = new Node(pbv);
             if (this->empty()) { this->first = this->last = n; }
             else {
                 this->last->next = n;
@@ -105,7 +104,7 @@ class list {
         std::size_t getSize() { return this->size; }
         
         iterator begin() { return iterator(this->first); }
-        iterator end() { return iterator(this->last->next); }
+        iterator end() { return iterator(nullptr); }
 };
 
 #endif // !LIST_H
