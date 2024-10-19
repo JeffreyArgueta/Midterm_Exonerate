@@ -300,12 +300,7 @@ int main (int argc, char *argv[]) {
                 }
                 break;
             case '8':
-                {
-                    lstCliente.clear();
-                    lstProducto.clear();
-                    lstVenta.clear();
-                    std::cout << "Saliendo del programa..." << std::endl;
-                }
+                { std::cout << "Saliendo del programa..." << std::endl; }
                 break;
             default:
                 { std::cout << "Error, opcion no definida." << std::endl; }

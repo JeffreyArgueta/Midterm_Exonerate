@@ -18,7 +18,7 @@ class list {
                     this->next = n;
                     this->prev = p;
                 }
-                friend class list;
+                friend class list<Tp_n>;
         };
         template<typename Tp_i>
         class Iterator {
@@ -34,16 +34,16 @@ class list {
                 pointer operator->() { return &this->node->value; }
 
                 Iterator& operator++() {
-                    if (this->node != nullptr) { this->node = this->node->next; }
+                    if (this->node) { this->node = this->node->next; }
                     return *this;
                 }
                 Iterator& operator--() {
-                    if (this->node != nullptr) { this->node = this->node->prev; }
+                    if (this->node) { this->node = this->node->prev; }
                     return *this;
                 }
                 bool operator==(const Iterator& other) const { return (this->node == other.node); }
                 bool operator!=(const Iterator& other) const { return (this->node != other.node); }
-                friend class list;
+                friend class list<Tp_i>;
         };
         Node<Tp>* first;
         Node<Tp>* last;
@@ -57,16 +57,22 @@ class list {
             this->last = nullptr;
             this->size = 0;
         }
-        ~list() { this->clear(); }
+        ~list() {
+            while (this->first) {
+                node tmp = this->first;
+                this->first = this->first->next;
+                delete tmp;
+            }
+        }
         void push_front(Tp pfv) {
             node n = new Node<Tp>(pfv);
             if (this->empty()) { this->first = this->last = n; }
             else {
-                n->next = this->first;
                 this->first->prev = n;
+                n->next = this->first;
                 this->first = n;
             }
-            this->size++;
+            ++this->size;
         }
         void push_back(Tp pbv) {
             node n = new Node<Tp>(pbv);
@@ -76,14 +82,14 @@ class list {
                 n->prev = this->last;
                 this->last = n;
             }
-            this->size++;
+            ++this->size;
         }
         void pop_front() { this->erase(iterator(this->first)); }
         void pop_back() { this->erase(iterator(this->last)); }
         void erase(iterator pos) {
             if (!this->empty()) {
                 node nd = pos.node;
-                if (this->front() == this->back()) { this->first = this->last = nullptr; }
+                if (this->first == this->last) { this->first = this->last = nullptr; }
                 else {
                     if (nd->prev) { nd->prev->next = nd->next; }
                     else { this->first = nd->next; }
@@ -92,24 +98,14 @@ class list {
                     else { this->last = nd->prev; }
                 }
                 delete nd;
-                this->size--;
+                --this->size;
             }
         }
         bool empty() { return (this->first == nullptr); }
-        void clear() { while (!empty()) { this->pop_front(); } }
         std::size_t getSize() { return this->size; }
         
-        iterator begin() { return iterator(this->front()); }
-        iterator end() { return iterator(this->back()->next); }
-
-        node front() {
-            if (this->empty()) { return nullptr; }
-            return this->first;
-        }
-        node back() {
-            if (this->empty()) { return nullptr; }
-            return this->last;
-        }
+        iterator begin() { return iterator(this->first); }
+        iterator end() { return iterator(this->last->next); }
 };
 
 #endif // !LIST_H
