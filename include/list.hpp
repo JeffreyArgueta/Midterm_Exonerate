@@ -18,7 +18,7 @@ class list {
                     this->next = n;
                     this->prev = p;
                 }
-                friend class list<Tp>;
+                friend class list;
         };
         template<typename Tp>
         class Iterator {
@@ -43,7 +43,7 @@ class list {
                 }
                 bool operator==(const Iterator& other) const { return (this->node == other.node); }
                 bool operator!=(const Iterator& other) const { return (this->node != other.node); }
-                friend class list<Tp>;
+                friend class list;
         };
         Node<Tp>* first;
         Node<Tp>* last;

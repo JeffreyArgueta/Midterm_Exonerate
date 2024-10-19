@@ -100,7 +100,7 @@ Venta* hacerVenta(list<Cliente*> lstC, list<Producto*> lstP) {
             }
             else { std::cout << "Producto no existente." << std::endl; }
 
-            std::cout << "Desea agregar otro procuto? [SI = 1]: "; std::cin >> respuesta;
+            std::cout << "Desea agregar otro producto? [SI = 1]: "; std::cin >> respuesta;
         } while (respuesta == '1');
 
         v->setProductosVendidos(lstProdVend);
