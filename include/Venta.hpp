@@ -3,14 +3,14 @@
 
 #include "Cliente.hpp"
 #include "Producto.hpp"
-#include "list.hpp"
+#include "../LST/List.hpp"
 
 class Venta {
     private:
         int noFactura;
         std::string fechaVenta;
         Cliente* cliente;
-        list<Producto*> productosVendidos;
+        List<Producto*> productosVendidos;
     public:
         Venta() { this->noFactura = 0; }
         Venta(int nf, std::string fv, Cliente* c) {
@@ -24,8 +24,8 @@ class Venta {
         std::string getFechaVenta() { return this->fechaVenta; }
         void setCliente(Cliente* sc) { this->cliente = sc; }
         Cliente* getCliente() { return this->cliente; }
-        void setProductosVendidos(list<Producto*> spv) { this->productosVendidos = spv; }
-        list<Producto*> getProductosVendidos() { return this->productosVendidos; }
+        void agregarProducto(Producto* ap) { this->productosVendidos.push_back(ap); }
+        List<Producto*>& getProductosVendidos() { return this->productosVendidos; }
 };
 
 #endif // !VENTA_H
